@@ -17,10 +17,13 @@ export default function Appointment(props) {
   );
 
   function save(name, interviewer) {
-    return {
+    const interview = {
       student: name,
       interviewer
     };
+
+    props.bookInterview(props.id, interview)
+    transition(SHOW);
   }
 
   return (
