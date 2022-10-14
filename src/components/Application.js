@@ -4,16 +4,25 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import InterviewerList from "./InterviewerList";
+import useApplicationData from "hooks/useApplicationData";
 import Appointment from "./Appointment/index.js";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 export default function Application(props) {
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-  });
+  // const [state, setState] = useState({
+  //   day: "Monday",
+  //   days: [],
+  //   appointments: {},
+  //   interviewers: {}
+  // });
+
+  const {
+    state,
+    setState,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
 
   useEffect(() => {
     Promise.all([
@@ -29,25 +38,44 @@ export default function Application(props) {
     })
   }, []);
 
-  function bookInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
+  // function bookInterview(id, interview) {
+  //   const appointment = {
+  //     ...state.appointments[id],
+  //     interview: { ...interview }
+  //   };
+  //   const appointments = {
+  //     ...state.appointments,
+  //     [id]: appointment
+  //   };
+  //   return axios.put(`/api/appointments/${id}`, { interview })
+  //     .then(() => {
+  //       setState({ ...state, appointments });
+  //     });
+  // }
 
-    setState({ ...state, appointments });
-  }
+  // function cancelInterview(id) {
+  //   // use appointment id to find the right appointment slot
+  //   const appointment = {
+  //     ...state.appointments[id],
+  //     interview: null
+  //   };
+  //   // and set its interview data to null
+  //   const appointments = {
+  //     ...state.appointments,
+  //     [id]: appointment
+  //   };
+
+  //   return axios.delete(`/api/appointments/${id}`)
+  //     .then(() => {
+  //       setState({ ...state, appointments });
+  //     })
+  // }
 
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
+
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-
-
     return (
       <Appointment
         key={appointment.id}
@@ -56,11 +84,12 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        onDelete={cancelInterview}
       />
     );
   });
 
-  const setDay = day => setState(prev => ({ ...prev, day }));
+  // const setDay = day => setState(prev => ({ ...prev, day }));
 
   return (
     <main className="layout">

@@ -4,7 +4,6 @@ import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
 export default function Form(props) {
-  console.log('form prop', props)
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const reset = () => {
@@ -38,7 +37,6 @@ export default function Form(props) {
         <InterviewerList
           interviewers={props.interviewers}
           value={interviewer}
-          // Is this needed in InterviewList?
           setInterviewer={setInterviewer}
         />
       </section>

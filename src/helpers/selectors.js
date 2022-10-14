@@ -37,7 +37,6 @@ export function getInterviewersForDay(state, day) {
     if (object.name === day) {
       // interviewersByDay = object.interviewers;
       interviewResult = object.interviewers.map((key) => state.interviewers[key]);
-      console.log("interview result", interviewResult)
     }
   }
   return interviewResult
