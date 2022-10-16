@@ -14,21 +14,12 @@ export default function useApplicationData() {
       return appointments[key].interview === null
     }).length
 
-    // const updatedDay = {
-    //   ...findDayObj,
-    //   spots: spotsRemaining
-    // }
-
     const updatedDays = state.days.map(day => {
       if (day.id === findDayObj.id) {
         return { ...day, spots: spotsRemaining }
       }
       else { return day }
     })
-    // [
-    //   ...state.days,
-    //   updatedDay
-    // ]
 
     return updatedDays;
 
@@ -45,11 +36,8 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    // throw new Error("error")
-
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        // throw new Error("error")
         const days = spotsCounter(appointments);
         setState({ ...state, appointments, days });
       })

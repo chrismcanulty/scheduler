@@ -7,13 +7,6 @@ import Application from "components/Application";
 jest.mock("axios");
 afterEach(cleanup);
 
-// jest.mock('axios', () => {
-//   const mAxiosInstance = { put: jest.fn() };
-//   return {
-//     create: jest.fn(() => mAxiosInstance),
-//   };
-// });
-
 describe("Appointment", () => {
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
     const { getByText } = render(<Application />);

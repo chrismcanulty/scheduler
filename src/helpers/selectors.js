@@ -35,24 +35,9 @@ export function getInterviewersForDay(state, day) {
   let interviewResult = [];
   for (const object of state.days) {
     if (object.name === day) {
-      // interviewersByDay = object.interviewers;
       interviewResult = object.interviewers.map((key) => state.interviewers[key]);
     }
   }
   return interviewResult
-  // either transform or work with the interviewersByDay object
 
-  // return interviewerResult.reduce((accumulator, interviewer) => {
-  //   accumulator.push(state.interviewers[interviewer]);
-  //   return accumulator
-  // }, [])
 };
-
-// export function getInterview(state, interview) {
-//   if (interview === null) return null;
-//   const interviewerID = interview.interviewer;
-//   return {
-//     "student": interview.student,
-//     "interviewer": state.interviewers[interviewerID]
-//   }
-// }
