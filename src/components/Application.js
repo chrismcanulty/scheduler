@@ -9,12 +9,6 @@ import Appointment from "./Appointment/index.js";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 export default function Application(props) {
-  // const [state, setState] = useState({
-  //   day: "Monday",
-  //   days: [],
-  //   appointments: {},
-  //   interviewers: {}
-  // });
 
   const {
     state,
@@ -26,9 +20,9 @@ export default function Application(props) {
 
   useEffect(() => {
     Promise.all([
-      axios.get(`api/days`),
-      axios.get(`api/appointments`),
-      axios.get(`api/interviewers`)
+      axios.get(`/api/days`),
+      axios.get(`/api/appointments`),
+      axios.get(`/api/interviewers`)
     ]).then((all) => {
       setState(prev => ({
         ...prev, days: all[0].data,
@@ -37,39 +31,6 @@ export default function Application(props) {
       }));
     })
   }, []);
-
-  // function bookInterview(id, interview) {
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: { ...interview }
-  //   };
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment
-  //   };
-  //   return axios.put(`/api/appointments/${id}`, { interview })
-  //     .then(() => {
-  //       setState({ ...state, appointments });
-  //     });
-  // }
-
-  // function cancelInterview(id) {
-  //   // use appointment id to find the right appointment slot
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: null
-  //   };
-  //   // and set its interview data to null
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment
-  //   };
-
-  //   return axios.delete(`/api/appointments/${id}`)
-  //     .then(() => {
-  //       setState({ ...state, appointments });
-  //     })
-  // }
 
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
@@ -88,8 +49,6 @@ export default function Application(props) {
       />
     );
   });
-
-  // const setDay = day => setState(prev => ({ ...prev, day }));
 
   return (
     <main className="layout">

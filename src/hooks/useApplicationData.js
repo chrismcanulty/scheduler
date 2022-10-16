@@ -45,11 +45,15 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
+    // throw new Error("error")
+
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
+        // throw new Error("error")
         const days = spotsCounter(appointments);
         setState({ ...state, appointments, days });
-      });
+      })
+      ;
   }
 
   function cancelInterview(appointmentId) {
